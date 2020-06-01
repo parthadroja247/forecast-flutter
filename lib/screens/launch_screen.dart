@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 
 class LaunchScreen extends StatelessWidget {
   static const String id = 'launch_screen';
@@ -11,21 +12,23 @@ class LaunchScreen extends StatelessWidget {
         children: [
           Center(
             child: Image(
-              image: AssetImage('images/Cloud.png'),
+              image: AssetImage('images/launch_screen/app_logo.png'),
             ),
           ),
           SizedBox(
             height: 8,
           ),
           Center(
-            child: TypewriterAnimatedTextKit(
-              text: ['Forecasts'],
-              speed: Duration(milliseconds: 300),
-              displayFullTextOnTap: true,
-              stopPauseOnTap: true,
-              totalRepeatCount: 1,
-              textStyle: TextStyle(fontFamily: 'Noteworthy', fontSize: 60),
-              alignment: AlignmentDirectional.topStart,
+            child: Shimmer.fromColors(
+              baseColor: Colors.white.withOpacity(0.6),
+              highlightColor: Colors.white,
+              child: Text(
+                'Forecasts',
+                style: GoogleFonts.montserratAlternates(
+                    textStyle:
+                        TextStyle(fontSize: 60, fontWeight: FontWeight.w300),
+                    color: Colors.white.withOpacity(0.6)),
+              ),
             ),
           ),
         ],
