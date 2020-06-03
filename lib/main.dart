@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forecastflutter/constants/colors_const.dart';
+import 'package:forecastflutter/screens/home_screen.dart';
 import 'screens/launch_screen.dart';
 import 'package:flutter/services.dart';
 
@@ -14,7 +15,10 @@ class ForecastApp extends StatelessWidget {
       theme: ThemeData.dark()
           .copyWith(scaffoldBackgroundColor: ColorsConst.appBackground),
       initialRoute: LaunchScreen.id,
-      routes: {LaunchScreen.id: (context) => LaunchScreen()},
+      routes: {
+        LaunchScreen.id: (context) => LaunchScreen(),
+        HomeScreen.id: (context) => HomeScreen()
+      },
     );
   }
 }
