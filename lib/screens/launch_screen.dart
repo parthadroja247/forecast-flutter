@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:forecastflutter/screens/home_screen.dart';
 import 'package:forecastflutter/services/location_service.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:forecastflutter/custom_widgets/splash_greeting_text.dart';
+import 'package:forecastflutter/custom_widgets/splash_logo_text.dart';
 
 class LaunchScreen extends StatefulWidget {
   static const String id = 'launch_screen';
@@ -41,67 +41,11 @@ class SplashView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Center(
-                child: Image(
-                  image: AssetImage('images/launch_screen/app_logo.png'),
-                ),
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Center(
-                child: Shimmer.fromColors(
-                  baseColor: Colors.white.withOpacity(0.6),
-                  highlightColor: Colors.white,
-                  child: Text(
-                    'Forecasts',
-                    style: GoogleFonts.montserratAlternates(
-                        textStyle: TextStyle(
-                            fontSize: 60, fontWeight: FontWeight.w300),
-                        color: Colors.white.withOpacity(0.6)),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        SplashLogoText(),
         Column(
           children: [SplashGreetingText()],
         )
       ],
-    );
-  }
-}
-
-class SplashGreetingText extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(bottom: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Made with ❤️ ',
-            style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w300,
-                color: Colors.white.withOpacity(0.5)),
-          ),
-          Text(
-            'Parth Adroja',
-            style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: Colors.white.withOpacity(0.5)),
-          ),
-        ],
-      ),
     );
   }
 }
