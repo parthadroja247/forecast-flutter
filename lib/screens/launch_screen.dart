@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forecastflutter/screens/home_screen.dart';
+import 'package:forecastflutter/screens/location_error_screen.dart';
 import 'package:forecastflutter/services/location_service.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:forecastflutter/custom_widgets/splash_greeting_text.dart';
@@ -13,13 +14,46 @@ class LaunchScreen extends StatefulWidget {
 
 class _LaunchScreenState extends State<LaunchScreen> {
   void getLocation() async {
-    LocationService locationService = LocationService();
-    Position location = await locationService.getCurrentLocation();
-    if (location != null) {
+    try {
+      LocationService locationService = LocationService();
+      Position location = await locationService.getCurrentLocation();
+      if (location != null) {
+        _goToHome();
+      } else {
+        print('No Location');
+      }
+    } catch (e) {
+      print(e);
       Future.delayed(const Duration(milliseconds: 1500), () {
-        Navigator.pushNamed(context, HomeScreen.id);
+        showModalBottomSheet(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0)),
+            ),
+            backgroundColor: Colors.white,
+            context: context,
+            clipBehavior: Clip.antiAlias,
+            isScrollControlled: true,
+            builder: (context) => SingleChildScrollView(
+                    child: Container(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: LocationErrorScreen(),
+                ))).then((value) => _closeModal(value));
       });
     }
+  }
+
+  void _closeModal(void value) {
+    print('modal closed');
+    _goToHome();
+  }
+
+  void _goToHome() {
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      Navigator.pushNamed(context, HomeScreen.id);
+    });
   }
 
   @override
